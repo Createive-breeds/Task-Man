@@ -25,3 +25,27 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.custom-input::-webkit-input-placeholder {
+  color: #696969; /* For WebKit-based browsers (Chrome, Safari) */
+}
+
+.custom-input:-moz-placeholder {
+  color: #696969; /* For Firefox 18- */
+}
+
+.custom-input::-moz-placeholder {
+  color: #696969; /* For Firefox 19+ */
+}
+
+.custom-input:-ms-input-placeholder {
+  color: #696969; /* For Internet Explorer 10+ */
+}
+
+
+input:focus{
+  outline: none;
+}
+
+
