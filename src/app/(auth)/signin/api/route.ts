@@ -3,7 +3,8 @@
 import { StandarResponse } from "@/global";
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-
+import bcrypt from "bcrypt";
+import { createSession } from "@/lib/session";
 export async function POST(request: NextRequest) {
   const user = await request.json();
   if (!user) {
@@ -13,24 +14,30 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { fullName, email, password, age } = user;
+  const { email, password } = user;
 
-  const newUser = await prisma.users.create({
-    data: {
-      fullName,
+  const authUser = await prisma.users.findUnique({
+    where: {
       email,
-      password,
-      age,
     },
   });
 
-  console.log(newUser);
+  if (!authUser) {
+    return NextResponse.json(
+      new StandarResponse("INVALID_USERNAME_OR_PASSWORD", 401, null),
+      { status: 401 }
+    );
+  }
 
-  return NextResponse.json(
-    new StandarResponse("REGISTRATION_WAS_SUCCESSFUL", 201, {
-      id: newUser.id,
-      email,
-    }),
-    { status: 201 }
-  );
+  const match = await bcrypt.compare(password, authUser.password);
+
+  if (!match) {
+    console.log("PASSWORD IS NOT CORRECT");
+    return NextResponse.json(
+      new StandarResponse("INVALID_USERNAME_OR_PASSWORD", 401, null),
+      { status: 401 }
+    );
+  }
+
+  return createSession(authUser.id, authUser.role);
 }

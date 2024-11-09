@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import Wave from "@/components/icons/Wave";
 import { Work_Sans } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { UsersDto } from "@/global";
 import styles from "./SignUp.module.css"; // Assuming this is where you put your CSS
 import SideBar from "@/components/SideBar";
 const workSans = Work_Sans({ subsets: ["latin"] });
 import axios, { AxiosResponse } from "axios";
-import { useRouter } from "next/navigation";
 import Errors from "@/components/forms/Errors";
 import { findMessage } from "@/lib/helper";
+import { PAGES } from "@/lib/constants";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const router = useRouter();
@@ -28,6 +27,7 @@ export default function SignUp() {
     password: "",
     confirmPassword: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   function validateUser() {
     const { fullName, email, password, confirmPassword } = userData;
@@ -75,9 +75,10 @@ export default function SignUp() {
 
     const isNotValid = validateUser();
 
-    if (isNotValid) {
+    if (isNotValid || isLoading) {
       return;
     }
+    setIsLoading(true)
 
     let response: AxiosResponse | undefined;
     try {
@@ -89,12 +90,14 @@ export default function SignUp() {
 
       console.log("response: ", response);
       console.log("data: ", response?.data);
+      alert(findMessage(response?.data?.message) || "Registration Successful"); //todo react-toast
+      router.push(PAGES.SIGN_IN);
     } catch (e: any) {
       console.log(e);
       alert(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
+      setIsLoading(false);
       return;
     }
-    alert(findMessage(response?.data?.message) || "Registration Successful"); //todo react-toast
   }
 
   return (
@@ -104,13 +107,14 @@ export default function SignUp() {
         buttonText="Sign In"
         subHeading="Please fill out your details to start earning"
         heading="Welcome Back!"
+        buttonLink={PAGES.SIGN_IN}
       />
       <form
         className={`${styles.form} ${workSans.className}`}
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className=" flex  py-0 px-[30px] flex-col justify-evenly items-start">
-          <span>
+          <span className="flex justify-center items-center w-full">
             <h1 className="text-black text-center">Create Account</h1>
           </span>
 
@@ -149,9 +153,15 @@ export default function SignUp() {
           />
           <Errors message={userError.confirmPassword} />
 
-          <button className=" w-[165px] h-[38px] rounded-[3px] bg-[#4caf50] mt-[30px] text-[white]">
-            Sign Up
-          </button>
+          <div className=" flex justify-center items-center w-full">
+            <button
+              className={`w-[165px] h-[38px] rounded-[3px] bg-[#4caf50] mt-[30px] text-[white]  ${
+                isLoading && "opacity-50"
+              }`}
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
       </form>
     </div>

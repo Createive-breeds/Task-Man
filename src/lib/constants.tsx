@@ -10,4 +10,16 @@ export const MESSAGES = {
     "REGISTRATION_WAS_SUCCESSFUL": {
         message: "Registeration Was Successful!"
      },
+     "INVALID_USERNAME_OR_PASSWORD": {
+        message: "Invalid Username or password"
+     },
+     "LOGIN_WAS_SUCCESSFUL":{
+        message: "Authenticated Successfully"
+     }
+}
+
+export const PAGES = {
+    SIGN_UP: "/signup",
+    SIGN_IN: "/signin",
+    DASHBOARD: "/dashboard"
 }

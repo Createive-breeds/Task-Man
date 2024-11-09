@@ -48,4 +48,14 @@ input:focus{
   outline: none;
 }
 
-
+  
+.form-input {
+  color: green;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  height: 37px;
+  border-bottom: 2px solid #696969;
+  margin-top: 20px;
+  font-weight: 500;
+}

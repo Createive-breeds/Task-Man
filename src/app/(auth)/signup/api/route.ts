@@ -1,8 +1,9 @@
-// src\app\(auth)\signup\api\route.ts
 "use server";
 
 import { StandarResponse } from "@/global";
 import prisma from "@/lib/prisma";
+import { Roles } from "@prisma/client";
+import  bcrypt  from "bcrypt"; 
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -16,35 +17,31 @@ export async function POST(request: NextRequest) {
 
   const { fullName, email, password } = user;
 
-  const existingUser = await prisma.users.findUnique({
+  const authUser = await prisma.users.findUnique({
     where: {
-      email, // email is assumed to be a unique field
+      email,
     },
   });
 
-  if (existingUser) {
+  if (authUser) {
     return NextResponse.json(
       new StandarResponse("USER_ALREADY_EXISTS", 401, null),
-      { status: 409 }
-    );
-  }
-
-  let newUser;
-  try {
-    newUser = await prisma.users.create({
-      data: {
-        fullName,
-        email,
-        password,
-        age: 0,
-      },
-    });
-  } catch (e) {
-    return NextResponse.json(
-      new StandarResponse("AN_ERROR_OCCURED", 401, e as object),
       { status: 401 }
     );
   }
+
+  const hashedPassword = await bcrypt.hash(password, 10)
+  const newUser = await prisma.users.create({
+    data: {
+      fullName,
+      email,
+      password: hashedPassword,
+      age:0,
+      role: Roles.USER
+    },
+  });
+
+  console.log(newUser);
 
   return NextResponse.json(
     new StandarResponse("REGISTRATION_WAS_SUCCESSFUL", 201, {
