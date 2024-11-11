@@ -107,8 +107,27 @@ export const verifySession = async () => {
 };
 
 export async function deleteSession() {
-  const cookieStore = await cookies();
-  cookieStore.delete("session");
+  const _cookies = await cookies();
+  // 3. Decrypt the session from the cookie
+  const cookie = _cookies.get("session")?.value;
+  const session = await decrypt(cookie);
+
+  if (!session?.userId) {
+    _cookies.delete("session");
+    return;
+  }
+
+  try {
+    await prisma.sessions.deleteMany({
+      where: {
+        userId: session?.userId,
+      },
+    });
+  } catch (e) {
+    console.log("error occured in delete Session(): ", e);
+  } finally {
+    _cookies.delete("session");
+  }
 }
 
 export async function encrypt(payload: SessionPayload) {
@@ -127,7 +146,9 @@ export async function decrypt(session: string | undefined = "") {
     return payload;
   } catch (error) {
     console.log("error occured decrypt() :", error);
-
-    console.log("Failed to verify session");
   }
+}
+
+export async function logout() {
+  deleteSession();
 }

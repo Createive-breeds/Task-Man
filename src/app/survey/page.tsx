@@ -1,11 +1,10 @@
-import DashBoardClient from "./client";
 import DashbaordLayout from "@/components/layout/DashboardLayout";
 
 
-export default function Dashbaord() {
+export default function Survey() {
   return (
    <DashbaordLayout>
-    <DashBoardClient />
+    <h1>Survey</h1>
    </DashbaordLayout>
   );
 }

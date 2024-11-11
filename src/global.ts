@@ -14,6 +14,9 @@ export interface SessionsDto {
   userId: string;
 }
 
+export type IconProp = {
+  path: string;
+};
 enum Roles {
   USER = "USER",
   ADMIN = "ADMIN",

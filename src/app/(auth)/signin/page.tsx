@@ -11,6 +11,7 @@ import { PAGES } from "@/lib/constants";
 import axios from "axios";
 import { findMessage } from "@/lib/helper";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const workSans = Work_Sans({ subsets: ["latin"] });
 
@@ -63,10 +64,10 @@ export default function SignIn() {
       console.log("response: ", response);
       console.log("data: ", response?.data);
       router.push(PAGES.DASHBOARD);
-      alert(findMessage(response?.data?.message)); //todo react-toast
+      toast.success(findMessage(response?.data?.message))
     } catch (e: any) {
       console.log(e);
-      alert(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
+      toast.error(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
     }finally {
       setIsLoading(false);
     }

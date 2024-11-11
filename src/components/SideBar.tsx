@@ -1,6 +1,6 @@
 import { Work_Sans } from "next/font/google";
 import styles from "./Components.module.css"; // Assuming this is where you put your CSS
-import Wave from "./icons/Wave";
+// import Wave from "./icons/Wave";
 import Link from "next/link";
 
 const workSans = Work_Sans({ subsets: ["latin"] });

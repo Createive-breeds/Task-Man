@@ -11,6 +11,7 @@ import Errors from "@/components/forms/Errors";
 import { findMessage } from "@/lib/helper";
 import { PAGES } from "@/lib/constants";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
   const router = useRouter();
@@ -90,11 +91,11 @@ export default function SignUp() {
 
       console.log("response: ", response);
       console.log("data: ", response?.data);
-      alert(findMessage(response?.data?.message) || "Registration Successful"); //todo react-toast
+      toast.success(findMessage(response?.data?.message) || "Registration Successful"); //todo react-toast
       router.push(PAGES.SIGN_IN);
     } catch (e: any) {
       console.log(e);
-      alert(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
+      toast.error(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
       setIsLoading(false);
       return;
     }

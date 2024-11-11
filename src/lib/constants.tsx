@@ -1,3 +1,7 @@
+import { DashboardIcon } from "@/components/icons/DashboardIcon";
+import { NotificationIcon } from "@/components/icons/NotificationIcon";
+import { SurveyIcon } from "@/components/icons/SurveyIcon";
+import { WithdrawIcon } from "@/components/icons/WithdrawIcon";
 
 
 export const MESSAGES = {
@@ -15,11 +19,38 @@ export const MESSAGES = {
      },
      "LOGIN_WAS_SUCCESSFUL":{
         message: "Authenticated Successfully"
+     },
+     "LOGOUT_SUCCESSFUL":{
+        message: "Logout Successful"
      }
 }
 
 export const PAGES = {
     SIGN_UP: "/signup",
     SIGN_IN: "/signin",
-    DASHBOARD: "/dashboard"
+    DASHBOARD: "/dashboard",
+    SURVEY: "/survey",
 }
+
+export const SideBarItems = [
+   {
+     label: "Dashbaord",
+     path: PAGES.DASHBOARD,
+     icon: <DashboardIcon path={PAGES.DASHBOARD} />,
+   },
+   {
+     label: "Survey",
+     path: PAGES.SURVEY,
+     icon: <SurveyIcon path="TODO" />,
+   },
+   {
+     label: "Withdrawal",
+     path: "404",
+     icon: <WithdrawIcon path="TODO" />,
+   },
+   {
+     label: "Notification",
+     path: "404",
+     icon: <NotificationIcon path="TODO" />,
+   },
+ ];
