@@ -1,19 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Work_Sans } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./SignIn.module.css"; // Assuming this is where you put your CSS
-import SideBar from "@/components/SideBar";
+import SideBoard from "@/components/SideBoard";
 import Errors from "@/components/forms/Errors";
 import Link from "next/link";
-import { PAGES } from "@/lib/constants";
+import { altFont, PAGES } from "@/lib/constants";
 import axios from "axios";
 import { findMessage } from "@/lib/helper";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-
-const workSans = Work_Sans({ subsets: ["latin"] });
 
 export default function SignIn() {
   const router = useRouter();
@@ -64,11 +61,13 @@ export default function SignIn() {
       console.log("response: ", response);
       console.log("data: ", response?.data);
       router.push(PAGES.DASHBOARD);
-      toast.success(findMessage(response?.data?.message))
+      toast.success(findMessage(response?.data?.message));
     } catch (e: any) {
       console.log(e);
-      toast.error(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
-    }finally {
+      toast.error(
+        findMessage(e?.response?.data?.message) || "An Error Occured"
+      ); // todo react-toast
+    } finally {
       setIsLoading(false);
     }
   }
@@ -85,12 +84,12 @@ export default function SignIn() {
   return (
     <div className={styles.page}>
       <form
-        className={`${styles.form} ${workSans.className}`}
+        className={`${styles.form} ${altFont.className}`}
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className=" flex py-0 px-[30px] flex-col justify-evenly items-start">
           <span className=" flex justify-center items-center w-full">
-            <h1 className="text-black">Sign In</h1>
+            <h1 className={`text-black `}>Sign In</h1>
           </span>
 
           <input
@@ -134,7 +133,7 @@ export default function SignIn() {
           </div>
         </div>
       </form>
-      <SideBar
+      <SideBoard
         showButton
         buttonText="Sign Up"
         subHeading="Welcome to Taskman where you earn just by answering questions."

@@ -22,11 +22,10 @@ enum Roles {
   ADMIN = "ADMIN",
 }
 
-
 export class StandarResponse {
   constructor(
     private readonly message: string,
     private readonly status_code: number,
-    private readonly data: object | null,
-  ){}
+    private readonly data: object | null
+  ) {}
 }

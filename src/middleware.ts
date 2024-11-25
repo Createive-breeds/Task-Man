@@ -4,7 +4,13 @@ import { cookies } from "next/headers";
 import { PAGES } from "./lib/constants";
 
 //  Specify protected and public routes
-const protectedRoutes = [PAGES.DASHBOARD];
+const protectedRoutes = [
+  PAGES.DASHBOARD,
+  PAGES.NOTIFICATION,
+  PAGES.SURVEY,
+  PAGES.WITHDRAWAL,
+  PAGES.NOTIFICATION,
+];
 const publicRoutes = [PAGES.SIGN_IN, PAGES.SIGN_UP, "/"];
 
 export default async function middleware(req: NextRequest) {

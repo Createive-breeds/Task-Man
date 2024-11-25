@@ -5,7 +5,7 @@ export default function DashBoardClient() {
     <div className=" bg-gray-50">
 
 
-      <div className="p-4 space-y-6">
+      <div className="py-6 space-y-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-gray-600 font-semibold">

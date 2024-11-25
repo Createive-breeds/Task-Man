@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Work_Sans } from "next/font/google";
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./SignUp.module.css"; // Assuming this is where you put your CSS
-import SideBar from "@/components/SideBar";
-const workSans = Work_Sans({ subsets: ["latin"] });
+import SideBoard from "@/components/SideBoard";
 import axios, { AxiosResponse } from "axios";
 import Errors from "@/components/forms/Errors";
 import { findMessage } from "@/lib/helper";
-import { PAGES } from "@/lib/constants";
+import { altFont, defaultFont, PAGES } from "@/lib/constants";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
@@ -79,7 +77,7 @@ export default function SignUp() {
     if (isNotValid || isLoading) {
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
 
     let response: AxiosResponse | undefined;
     try {
@@ -91,19 +89,23 @@ export default function SignUp() {
 
       console.log("response: ", response);
       console.log("data: ", response?.data);
-      toast.success(findMessage(response?.data?.message) || "Registration Successful"); //todo react-toast
+      toast.success(
+        findMessage(response?.data?.message) || "Registration Successful"
+      ); //todo react-toast
       router.push(PAGES.SIGN_IN);
     } catch (e: any) {
       console.log(e);
-      toast.error(findMessage(e?.response?.data?.message) || "An Error Occured"); // todo react-toast
+      toast.error(
+        findMessage(e?.response?.data?.message) || "An Error Occured"
+      ); // todo react-toast
       setIsLoading(false);
       return;
     }
   }
 
   return (
-    <div className={styles.page}>
-      <SideBar
+    <div className={`${styles.page} ${altFont.className}`}>
+      <SideBoard
         showButton
         buttonText="Sign In"
         subHeading="Please fill out your details to start earning"
@@ -111,12 +113,12 @@ export default function SignUp() {
         buttonLink={PAGES.SIGN_IN}
       />
       <form
-        className={`${styles.form} ${workSans.className}`}
+        className={`${styles.form} ${defaultFont.className}`}
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className=" flex  py-0 px-[30px] flex-col justify-evenly items-start">
           <span className="flex justify-center items-center w-full">
-            <h1 className="text-black text-center">Create Account</h1>
+            <h1 className={`text-black text-center`}>Create Account</h1>
           </span>
 
           <input

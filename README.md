@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here’s an updated `README.md` template based on your project structure and requirements:
+
+---
+
+# TaskMan
+
+This is a **Next.js** project that utilizes **Prisma** as the ORM along side postgreSQL and **next/font** for managing fonts.
 
 ## Getting Started
 
-First, run the development server:
+To set up and run this project locally, follow the steps below:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Createive-breeds/Task-Man.git
+cd <repository-folder>
+```
+
+### 2. Create the `.env` File
+
+Copy the contents of the provided `.env.example` file to a new `.env` file. You can use the following command:
+
+```bash
+cp .env.example .env
+```
+
+Edit the `.env` file with the appropriate values for your local environment.
+
+### 3. Install Dependencies
+
+Run the following command to install all required dependencies:
+
+```bash
+npm install
+```
+
+### 4. Set Up Prisma
+
+1. Generate Prisma Client:
+   ```bash
+   npx prisma generate
+   ```
+2. (Optional) Apply Database Migrations:
+   If you need to apply existing migrations to your database, run:
+
+   ```bash
+   npx prisma migrate dev
+   ```
+
+   **Note:** Ensure your database connection is correctly configured in the `.env` file before running migrations.
+
+### 5. Run the Development Server
+
+Start the development server using:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+Below is the project structure for reference:
 
-To learn more about Next.js, take a look at the following resources:
+```
+.
+├── .next/               # Compiled build output (auto-generated)
+├── .vscode/             # VSCode settings (if applicable)
+├── node_modules/        # Installed dependencies (auto-generated)
+├── prisma/              # Prisma configuration
+│   ├── migrations/      # Database migration files
+│   └── schema.prisma    # Prisma schema
+├── src/
+│   ├── app/             # Next.js app directory
+│   │   ├── (auth)/      # Authentication-related routes
+│   │   ├── api/         # API endpoints
+│   │   ├── dashboard/   # Dashboard pages
+│   │   ├── fonts/       # Custom fonts
+│   │   ├── notification/ # Notification-related pages
+│   │   ├── survey/      # Survey-related pages
+│   │   ├── withdrawal/  # Withdrawal-related pages
+│   │   ├── globals.css  # Global styles
+│   │   ├── layout.tsx   # Layout component
+│   │   └── page.tsx     # Main page
+│   ├── components/      # Reusable components
+│   └── lib/             # Utility functions and libraries
+├── .env                 # Environment variables
+├── .env.example         # Environment variable template
+├── .eslintrc.json       # ESLint configuration
+├── .gitignore           # Git ignore rules
+├── .prettierrc          # Prettier configuration
+├── next.config.mjs      # Next.js configuration
+├── package.json         # Project metadata and dependencies
+├── postcss.config.mjs   # PostCSS configuration
+├── tailwind.config.ts   # Tailwind CSS configuration
+├── tsconfig.json        # TypeScript configuration
+└── README.md            # Project documentation
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features
 
-## Deploy on Vercel
+- **Next.js** for server-side rendering and React-based development.
+- **Prisma** as the database ORM.
+- **next/font** for custom font management.
+- **Tailwind CSS** for styling.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
